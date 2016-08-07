@@ -1,20 +1,43 @@
 version: '2'
 services:
+  data-pokego:
+    image: tianon/true
+    volumes:
+      - ./web:/usr/src/app/web      
   bot1-pokego:
     build: .
+    volumes_from:
+      - data-pokego 
     volumes:
-     - ./configs/config.json:/usr/src/app/configs/config.json
+      - ./configs/config-account1.json:/usr/src/app/configs/config.json
     stdin_open: true
     tty: true
+    depends_on:
+      - data-pokego
+
+  bot2-pokego:
+    build: .
+    volumes_from:
+      - data-pokego 
+    volumes:
+      - ./configs/config-account2.json:/usr/src/app/configs/config.json
+    depends_on:
+      - data-pokego
+    stdin_open: true
+    tty: true
+
   bot1-pokegoweb:
     image: python:2.7
     ports:
-     - "8000:8000"
+     - "7575:8000"
     volumes_from:
-     - bot1-pokego
+      - data-pokego 
     volumes:
-     - ./configs/userdata.js:/usr/src/app/web/config/userdata.js
+      - ./configs/userdata-multiple.js:/usr/src/app/web/config/userdata.js
     working_dir: /usr/src/app/web
     command: bash -c "echo 'Serving HTTP on 0.0.0.0 port 8000' && python -m SimpleHTTPServer > /dev/null 2>&1"
     depends_on:
-     - bot1-pokego
+     - data-pokego
+
+volumes:
+  data:

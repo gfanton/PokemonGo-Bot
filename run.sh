@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+pwd
+
+if [ ! -f /usr/src/app/encrypt.so ]; then
+    
+fi
+
+export PYTHONIOENCODING=utf-8
+export LD_LIBRARY_PATH=/usr/src/app
+
 # Starts PokemonGo-Bot
 config=""
 
