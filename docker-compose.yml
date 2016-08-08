@@ -3,6 +3,7 @@ services:
   data-pokego:
     image: tianon/true
     volumes:
+      - data:/usr/src
       - ./web:/usr/src/app/web      
   bot1-pokego:
     build: .

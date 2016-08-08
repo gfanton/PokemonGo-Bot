@@ -25,8 +25,6 @@ RUN wget -O /usr/src/app/pgoencrypt.tar.gz http://pgoapi.com/pgoencrypt.tar.gz \
         && make -C /usr/src/app/pgoencrypt/src \
         && mv /usr/src/app/pgoencrypt/src/libencrypt.so /usr/src/app/encrypt.so
 
-COPY web /usr/src/app/web
-
 EXPOSE 8000
 
 ENTRYPOINT ["/usr/bin/supervisord"]
